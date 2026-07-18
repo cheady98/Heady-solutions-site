@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heady Solutions — Get Found Online · Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F0E6;--paper-2:#ECE6D8;--card:#FBF8F1;
+    --ink:#1A1712;--ink-soft:#4B463D;--muted:#8B8375;--line:#D9D1C1;
+    --dark:#15161B;--dark-2:#1F212A;--on-dark:#EFE9DC;--muted-dark:#9AA0A8;--line-dark:rgba(239,233,220,.14);
+    --orange:#E2542B;--orange-br:#F26A3A;--glow:rgba(226,84,43,.30);
+    --radius:3px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{font-family:"Inter",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+  h1,h2,h3,.serif{font-family:"Fraunces","Georgia",serif;letter-spacing:-.018em;line-height:1.04;font-weight:600;}
+  .em{font-style:italic;color:var(--orange);font-weight:500;}
+  .eyebrow{font-family:"Inter",sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:.7em;}
+  .eyebrow::before{content:"";width:24px;height:1.5px;background:var(--orange);display:inline-block;flex:none;}
+  .mono{font-family:"Space Mono",monospace;letter-spacing:.14em;text-transform:uppercase;}
+
+  .btn{display:inline-flex;align-items:center;gap:.55em;background:var(--orange);color:#fff;font-family:"Inter",sans-serif;font-weight:600;font-size:1rem;padding:15px 26px;border:none;border-radius:var(--radius);text-decoration:none;cursor:pointer;transition:background .15s ease,transform .12s ease;}
+  .btn:hover{background:var(--orange-br);transform:translateY(-1px);}
+  .btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px;}
+  .link{display:inline-flex;align-items:center;gap:.5em;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--line);padding-bottom:3px;transition:border-color .15s ease;}
+  .link .ar{color:var(--orange);}
+  .link:hover{border-color:var(--orange);}
+
+  /* left rail */
+  .rail{position:fixed;top:0;bottom:0;left:34px;width:22px;z-index:5;display:none;pointer-events:none;}
+  .rail .line{position:absolute;top:90px;bottom:40px;left:10px;width:1.5px;background:linear-gradient(var(--orange),rgba(226,84,43,.12));}
+  .rail .dot{position:absolute;left:5px;width:9px;height:9px;border-radius:50%;background:var(--paper);border:2px solid var(--orange);}
+  .rail .vlabel{position:absolute;left:1px;bottom:54px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);}
+  @media(min-width:1180px){.rail{display:block;}}
+
+  /* ============ HERO (dark) ============ */
+  .hero{background:var(--dark);color:var(--on-dark);position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;}
+  .hero-bg .contour{position:absolute;inset:0;width:100%;height:100%;opacity:.5;}
+  .hero-bg .glow{position:absolute;top:8%;right:-6%;width:56%;height:80%;background:radial-gradient(circle at 60% 40%,var(--glow),transparent 60%);}
+  .hero-inner{position:relative;z-index:1;}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;gap:20px;}
+  .mark{display:flex;align-items:center;gap:12px;}
+  .mark .badge{width:34px;height:34px;border:1.5px solid var(--orange);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;}
+  .mark .name{font-family:"Space Mono",monospace;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--on-dark);}
+  .mark .name b{color:#fff;font-weight:700;}
+  .mark .name .sub{color:var(--muted-dark);}
+  .nav-links{display:flex;align-items:center;gap:26px;}
+  .nav-links a{font-family:"Inter",sans-serif;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-dark);text-decoration:none;transition:color .15s;}
+  .nav-links a:hover{color:#fff;}
+  .nav-ghost{border:1px solid var(--line-dark);border-radius:var(--radius);padding:9px 16px !important;color:var(--on-dark) !important;}
+  .nav-ghost:hover{border-color:var(--orange);color:#fff !important;}
+
+  .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center;padding:56px 0 76px;}
+  .hero h1{font-size:clamp(2.6rem,6.2vw,4.4rem);font-weight:600;color:#fff;margin:20px 0 22px;}
+  .hero .sub{font-size:clamp(1.02rem,2.3vw,1.16rem);color:var(--muted-dark);max-width:48ch;}
+  .hero .cta-row{margin-top:32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .hero .link{color:var(--on-dark);border-color:var(--line-dark);}
+  .hero .link:hover{border-color:var(--orange);}
+  .hero-note{margin-top:26px;font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-dark);}
+
+  /* radar */
+  .radar-stage{position:relative;aspect-ratio:1;max-width:400px;margin-left:auto;width:100%;}
+  .radar{position:absolute;inset:0;border-radius:50%;}
+  .radar-grid{width:100%;height:100%;display:block;}
+  .radar-grid circle,.radar-grid line{fill:none;stroke:rgba(226,84,43,.30);stroke-width:1;}
+  .radar-core{position:absolute;top:50%;left:50%;width:26%;height:26%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--orange-br),var(--orange) 45%,transparent 72%);box-shadow:0 0 60px 12px var(--glow);}
+  .radar-sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(242,106,58,.42),rgba(242,106,58,0) 68deg);animation:sweep 4s linear infinite;}
+  .radar-blip{position:absolute;top:30%;left:66%;width:11px;height:11px;border-radius:50%;background:var(--orange-br);box-shadow:0 0 10px 2px var(--glow);animation:blip 2.2s ease-out infinite;}
+  @keyframes sweep{to{transform:rotate(360deg);}}
+  @keyframes blip{0%{box-shadow:0 0 0 0 rgba(242,106,58,.5);}100%{box-shadow:0 0 0 20px rgba(242,106,58,0);}}
+  .radar-tag{position:absolute;bottom:-6px;left:0;font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+
+  /* ============ PULL QUOTE ============ */
+  .pull{padding:64px 0;}
+  .pull blockquote{border-left:3px solid var(--orange);padding-left:26px;font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.22;max-width:24ch;}
+  .pull blockquote .em{font-style:italic;}
+
+  /* ============ SECTIONS ============ */
+  .sec{padding:26px 0 20px;}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:30px;flex-wrap:wrap;}
+  .sec-head h2{font-size:clamp(1.9rem,4.4vw,2.8rem);}
+  .sec-head .lead{max-width:34ch;color:var(--ink-soft);font-size:.98rem;}
+  .anchor-tag{font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+
+  /* service cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);}
+  .card{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:28px 24px;background:transparent;position:relative;}
+  .card:first-child{border-left:1px solid var(--line);}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;}
+  .icobox{width:42px;height:42px;border:1px solid var(--orange);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--orange);}
+  .icobox svg{width:22px;height:22px;}
+  .card .no{font-family:"Fraunces",serif;font-weight:500;font-size:1.5rem;color:var(--muted);}
+  .card h3{font-size:1.35rem;margin-bottom:6px;}
+  .card .role{font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+  .card p{font-size:.95rem;color:var(--ink-soft);}
+  .card .sh{border-top:1px solid var(--line);margin-top:20px;padding-top:16px;}
+  .card .sh .k{font-family:"Space Mono",monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .card .sh .v{font-family:"Fraunces",serif;font-weight:500;font-size:1.02rem;line-height:1.3;color:var(--ink);}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .step .no{font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.12em;color:var(--orange);}
+  .step h3{font-size:1.35rem;margin:12px 0 8px;border-top:2px solid var(--ink);padding-top:16px;}
+  .step p{font-size:.95rem;color:var(--ink-soft);}
+
+  /* why */
+  .why{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:36px 34px;}
+  .why h2{font-size:clamp(1.7rem,3.6vw,2.2rem);margin-bottom:22px;}
+  .why ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:18px 34px;}
+  .why li{position:relative;padding-left:28px;font-size:1rem;color:var(--ink);}
+  .why li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:9px;background:var(--orange);border-radius:50%;}
+
+  /* footer (dark) */
+  .foot-sec{margin-top:60px;background:var(--dark);color:var(--on-dark);position:relative;overflow:hidden;}
+  .foot-sec .glow{position:absolute;bottom:-30%;left:-10%;width:60%;height:120%;background:radial-gradient(circle,var(--glow),transparent 60%);pointer-events:none;}
+  .foot-in{position:relative;z-index:1;padding:60px 0;}
+  .foot-in h2{font-size:clamp(2rem,4.6vw,3rem);color:#fff;margin:16px 0 14px;max-width:16ch;}
+  .foot-in .fsub{color:var(--muted-dark);max-width:46ch;margin-bottom:30px;}
+  .contact{display:flex;flex-wrap:wrap;gap:10px 34px;border-top:1px solid var(--line-dark);margin-top:40px;padding-top:24px;font-family:"Space Mono",monospace;font-size:.78rem;letter-spacing:.05em;}
+  .contact span{color:var(--muted-dark);}
+  .contact b{color:var(--on-dark);font-weight:400;}
+  .ph{background:rgba(226,84,43,.18);color:var(--orange-br);padding:2px 7px;border-radius:var(--radius);font-weight:700;}
+  .end{padding:22px 0;text-align:center;font-family:"Space Mono",monospace;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+
+  /* thanks banner */
+  .thanks-banner{display:none;background:var(--orange);color:#1a0f08;}
+  .thanks-banner.show{display:block;}
+  .tb-in{max-width:1080px;margin:0 auto;padding:15px 32px;display:flex;align-items:center;gap:12px;font-size:.97rem;font-weight:500;}
+  .tb-in svg{width:22px;height:22px;flex:none;}
+  .tb-x{margin-left:auto;background:none;border:none;color:rgba(26,15,8,.6);font-size:1.5rem;cursor:pointer;line-height:1;padding:0 4px;}
+  .tb-x:hover{color:#1a0f08;}
+
+  @media (max-width:820px){
+    .hero-grid{grid-template-columns:1fr;gap:40px;padding:40px 0 60px;}
+    .radar-stage{max-width:300px;margin:0 auto;}
+    .nav-links a:not(.nav-ghost){display:none;}
+    .cards{grid-template-columns:1fr;border-left:1px solid var(--line);}
+    .card{border-right:1px solid var(--line);}
+    .steps{grid-template-columns:1fr;gap:24px;}
+    .why ul{grid-template-columns:1fr;}
+    .sec-head{align-items:flex-start;}
+  }
+
+  /* ============ AUDIT OVERLAY (editorial, light) ============ */
+  #auditView{position:fixed;inset:0;background:var(--paper);z-index:1000;overflow-y:auto;display:none;}
+  #auditView.open{display:block;}
+  .av-bar{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:2;}
+  .av-bar-in{max-width:720px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  .av-brand{font-family:"Space Mono",monospace;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;}
+  .av-brand b{color:var(--ink);}
+  .av-brand .o{color:var(--orange);}
+  .av-close{background:none;border:none;color:var(--muted);font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+  .av-close:hover{color:var(--ink);}
+  .av-prog{height:3px;background:var(--line);}
+  .av-prog-fill{height:100%;background:var(--orange);width:0;transition:width .35s ease;}
+  .av-main{display:flex;align-items:flex-start;justify-content:center;padding:44px 28px 64px;min-height:calc(100vh - 60px);}
+  .av-card{max-width:600px;width:100%;}
+  .av-screen{display:none;animation:rise .38s ease both;}
+  .av-screen.active{display:block;}
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+  .av-q-pillar{font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+  .av-q-text{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.5rem,3.8vw,2.1rem);line-height:1.1;margin-bottom:26px;letter-spacing:-.015em;}
+  .av-opts{display:flex;flex-direction:column;gap:12px;}
+  .av-opt{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;font-family:"Inter",sans-serif;font-size:1rem;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:14px;transition:border-color .15s ease,background .15s ease;}
+  .av-opt:hover{border-color:var(--orange);}
+  .av-opt:focus-visible{outline:3px solid var(--orange);outline-offset:2px;}
+  .av-opt .av-dot{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);flex:none;transition:all .15s ease;}
+  .av-opt.sel{border-color:var(--orange);background:rgba(226,84,43,.06);}
+  .av-opt.sel .av-dot{border-color:var(--orange);background:var(--orange);box-shadow:inset 0 0 0 3px var(--card);}
+  .av-nav{margin-top:24px;display:flex;justify-content:space-between;align-items:center;}
+  .av-back{background:none;border:none;color:var(--muted);font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;padding:6px 4px;}
+  .av-back:hover{color:var(--ink);}
+  .av-count{font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+
+  .av-res-head{text-align:center;margin-bottom:30px;}
+  .av-gauge{position:relative;width:180px;height:180px;margin:0 auto 10px;}
+  .av-gauge svg{transform:rotate(-90deg);}
+  .av-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .av-num b{font-family:"Fraunces",serif;font-weight:600;font-size:2.9rem;line-height:1;}
+  .av-num span{font-size:.62rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:"Space Mono",monospace;margin-top:4px;}
+  .av-res-head h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:8px;}
+  .av-res-head p{color:var(--ink-soft);max-width:42ch;margin:0 auto;}
+
+  .av-bars{display:flex;flex-direction:column;gap:18px;margin:30px 0;}
+  .av-barrow .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .av-barrow .top b{font-family:"Fraunces",serif;font-weight:600;font-size:1.08rem;}
+  .av-barrow .top .tag{font-family:"Space Mono",monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--orange);padding:3px 9px;border-radius:20px;}
+  .av-barrow .top .pct{font-family:"Space Mono",monospace;font-size:.8rem;color:var(--muted);}
+  .av-track{height:10px;background:var(--paper-2);border:1px solid var(--line);border-radius:20px;overflow:hidden;}
+  .av-track .av-fill{height:100%;width:0;background:#C9A47A;transition:width .8s cubic-bezier(.4,0,.2,1);}
+  .av-track .av-fill.weak{background:var(--orange);}
+
+  .av-rec{background:var(--dark);color:var(--on-dark);border-radius:var(--radius);padding:28px;margin:28px 0;}
+  .av-rec .k{font-family:"Space Mono",monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange-br);}
+  .av-rec h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.4rem;margin:10px 0 8px;color:#fff;}
+  .av-rec p{color:var(--muted-dark);font-size:.98rem;}
+
+  .av-capture{border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;background:var(--card);}
+  .av-capture h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.5rem;margin-bottom:6px;}
+  .av-capture .sub{color:var(--ink-soft);font-size:.96rem;margin-bottom:22px;}
+  .av-field{margin-bottom:14px;}
+  .av-field label{display:block;font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .av-field input{width:100%;font-family:"Inter",sans-serif;font-size:1rem;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);color:var(--ink);}
+  .av-field input::placeholder{color:#A99F8D;}
+  .av-field input:focus{outline:none;border-color:var(--orange);background:#fff;}
+  .av-btn{display:block;width:100%;text-align:center;background:var(--orange);color:#fff;font-family:"Inter",sans-serif;font-weight:600;font-size:1.02rem;padding:15px 28px;border:none;border-radius:var(--radius);cursor:pointer;margin-top:8px;transition:background .15s ease;}
+  .av-btn:hover{background:var(--orange-br);}
+  .av-btn[disabled]{opacity:.55;cursor:not-allowed;}
+  .av-finenote{font-size:.82rem;color:var(--muted);margin-top:14px;text-align:center;}
+  .av-err{color:#b3261e;font-size:.82rem;margin-top:6px;display:none;}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+  @media print{#auditView,.rail{display:none!important;}}
+</style>
+</head>
+<body>
+
+  <!-- LEFT RAIL -->
+  <div class="rail" aria-hidden="true">
+    <div class="line"></div>
+    <div class="dot" style="top:120px;"></div>
+    <div class="dot" style="top:40%;"></div>
+    <div class="dot" style="top:64%;"></div>
+    <div class="dot" style="bottom:90px;"></div>
+    <div class="vlabel">Heady Solutions &middot; Field Guide &middot; 2026</div>
+  </div>
+
+  <!-- THANKS BANNER -->
+  <div class="thanks-banner" id="thanksBanner">
+    <div class="tb-in">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <span id="thanksBannerText"></span>
+      <button class="tb-x" aria-label="Dismiss" onclick="document.getElementById('thanksBanner').classList.remove('show')">&times;</button>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="hero-bg">
+      <svg class="contour" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="rgba(239,233,220,0.06)" stroke-width="1">
+          <path d="M-50 120 C 200 60, 400 200, 650 130 S 1050 60, 1260 160"/>
+          <path d="M-50 220 C 220 160, 420 300, 660 230 S 1060 160, 1260 260"/>
+          <path d="M-50 330 C 240 270, 440 410, 680 340 S 1080 270, 1260 370"/>
+          <path d="M-50 450 C 240 390, 460 520, 700 450 S 1090 380, 1260 480"/>
+          <path d="M-50 560 C 250 500, 470 630, 710 560 S 1100 500, 1260 590"/>
+        </g>
+        <g fill="rgba(226,84,43,0.35)">
+          <circle cx="880" cy="180" r="2.4"/><circle cx="1010" cy="120" r="2"/><circle cx="960" cy="300" r="2"/>
+          <circle cx="1080" cy="360" r="2.4"/><circle cx="820" cy="420" r="1.8"/>
+        </g>
+      </svg>
+      <div class="glow"></div>
+    </div>
+
+    <div class="wrap hero-inner">
+      <nav class="nav">
+        <div class="mark">
+          <span class="badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E2542B" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.4" fill="#E2542B" stroke="none"/></svg>
+          </span>
+          <span class="name"><b>Heady Solutions</b> <span class="sub">/ Field Guide</span></span>
+        </div>
+        <div class="nav-links">
+          <a href="#what">What I do</a>
+          <a href="#how">How it works</a>
+          <a class="nav-ghost" href="javascript:void(0)" onclick="openAudit()">Take the audit</a>
+        </div>
+      </nav>
+
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Get found online</div>
+          <h1>Your next customer is <span class="em">searching</span> right now.</h1>
+          <p class="sub">I build local businesses a website and online presence that turns "near me" searches into phone calls — without the agency price tag or the tech headache.</p>
+          <div class="cta-row">
+            <button class="btn" type="button" onclick="openAudit()">Take the free 2-minute audit
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </button>
+            <a class="link" href="#what">See what I do <span class="ar">&rarr;</span></a>
+          </div>
+          <div class="hero-note">Field note 01 &middot; 8 questions &middot; instant score</div>
+        </div>
+
+        <div class="radar-stage">
+          <div class="radar">
+            <svg class="radar-grid" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="94"/><circle cx="100" cy="100" r="64"/><circle cx="100" cy="100" r="34"/>
+              <line x1="100" y1="6" x2="100" y2="194"/><line x1="6" y1="100" x2="194" y2="100"/>
+            </svg>
+            <div class="radar-sweep"></div>
+            <div class="radar-core"></div>
+            <div class="radar-blip"></div>
+          </div>
+          <div class="radar-tag">// signal detected</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PULL QUOTE -->
+  <section class="pull">
+    <div class="wrap">
+      <blockquote>Most people find a local service with a quick search — and they call one of the <span class="em">first names they see.</span></blockquote>
+    </div>
+  </section>
+
+  <!-- WHAT I DO -->
+  <section class="sec" id="what">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow" style="margin-bottom:14px;">What I do</div>
+          <h2>Three ways I get you<br>found &mdash; and hired.</h2>
+        </div>
+        <div class="lead">Each one closes a gap where local businesses quietly lose customers to competitors.</div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="top">
+            <span class="icobox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <span class="no">01</span>
+          </div>
+          <div class="role">Presence</div>
+          <h3>A website that works</h3>
+          <p>A clean, fast, mobile-friendly site that makes you look established and tells people exactly how to hire you.</p>
+          <div class="sh"><div class="k">Start here when</div><div class="v">You have no site, or one you're not proud of.</div></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="icobox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+            <span class="no">02</span>
+          </div>
+          <div class="role">Visibility</div>
+          <h3>Get found on Google</h3>
+          <p>I set up and sharpen your Google Business Profile and local listings so you show up on the map for "near me" searches.</p>
+          <div class="sh"><div class="k">Start here when</div><div class="v">You don't show up when people search nearby.</div></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="icobox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
+            <span class="no">03</span>
+          </div>
+          <div class="role">Capture</div>
+          <h3>Never miss a lead</h3>
+          <p>Automatic text-back and follow-up so every call and form turns into a real conversation — even mid-job.</p>
+          <div class="sh"><div class="k">Start here when</div><div class="v">Calls slip through while you're on a job.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec" id="how" style="padding-top:60px;">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow" style="margin-bottom:14px;">How it works</div>
+          <h2>Simple, start to finish.</h2>
+        </div>
+        <div class="anchor-tag">Field anchor / the process</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="no">01 &mdash; Free audit</div>
+          <h3>Take the 2-minute audit</h3>
+          <p>Answer 8 quick questions and get your Get-Found Score, plus the one thing worth fixing first.</p>
+        </div>
+        <div class="step">
+          <div class="no">02 &mdash; I build it</div>
+          <h3>Done for you</h3>
+          <p>Website, Google profile, lead follow-up — built for you at a fixed price. No jargon, no surprises.</p>
+        </div>
+        <div class="step">
+          <div class="no">03 &mdash; You get found</div>
+          <h3>The phone rings</h3>
+          <p>You start showing up when people search nearby, and inquiries stop falling through the cracks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="sec" style="padding-top:60px;">
+    <div class="wrap">
+      <div class="why">
+        <div class="eyebrow" style="margin-bottom:18px;">Why work with me</div>
+        <h2>Local, plain-spoken, and fast.</h2>
+        <ul>
+          <li>Local, and I speak plainly — no agency jargon.</li>
+          <li>Modern AI-powered tools mean faster work and a lower price.</li>
+          <li>One person who answers the phone, not a call center.</li>
+          <li>You focus on the work; I handle the online side.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <section class="foot-sec">
+    <div class="glow"></div>
+    <div class="wrap foot-in">
+      <div class="eyebrow">Start here</div>
+      <h2>See where you stand &mdash; free.</h2>
+      <p class="fsub">Take the 2-minute Get-Found audit and I'll send back exactly what to fix first. I'm taking on a few founding clients now at a reduced rate.</p>
+      <button class="btn" type="button" onclick="openAudit()">Take the free 2-minute audit
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </button>
+      <div class="contact">
+        <div><span>Name</span> <b>Caleb Heady</b></div>
+        <div><span>Call/Text</span> <b class="ph">505-252-0204</b></div>
+        <div><span>Email</span> <b>cheady98@outlook.com</b></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="end">Heady Solutions &middot; Get found &middot; Get customers &middot; Grow</div>
+
+  <!-- ============ AUDIT OVERLAY ============ -->
+  <div id="auditView" role="dialog" aria-modal="true" aria-label="Get-Found Audit">
+    <div class="av-bar">
+      <div class="av-bar-in">
+        <div class="av-brand"><b>Heady Solutions</b> <span class="o">/ Get-Found Audit</span></div>
+        <button class="av-close" type="button" onclick="closeAudit()">&larr; Back to site</button>
+      </div>
+    </div>
+    <div class="av-prog"><div class="av-prog-fill" id="avProg"></div></div>
+    <div class="av-main">
+      <div class="av-card">
+        <section class="av-screen active" id="avQuestion">
+          <div class="av-q-pillar" id="avQPillar"></div>
+          <div class="av-q-text" id="avQText"></div>
+          <div class="av-opts" id="avQOpts"></div>
+          <div class="av-nav">
+            <button class="av-back" id="avBack" type="button">&larr; Back</button>
+            <span class="av-count" id="avCount"></span>
+          </div>
+        </section>
+        <section class="av-screen" id="avResults">
+          <div class="av-res-head">
+            <div class="av-gauge">
+              <svg width="180" height="180" viewBox="0 0 180 180">
+                <circle cx="90" cy="90" r="76" fill="none" stroke="#D9D1C1" stroke-width="13"/>
+                <circle id="avGaugeArc" cx="90" cy="90" r="76" fill="none" stroke="#E2542B" stroke-width="13" stroke-linecap="round" stroke-dasharray="477.5" stroke-dashoffset="477.5"/>
+              </svg>
+              <div class="av-num"><b id="avScoreNum">0</b><span>out of 100</span></div>
+            </div>
+            <h2 id="avBandTitle"></h2>
+            <p id="avBandText"></p>
+          </div>
+          <div class="av-bars" id="avBars"></div>
+          <div class="av-rec">
+            <div class="k">Start here — your biggest opportunity</div>
+            <h3 id="avRecTitle"></h3>
+            <p id="avRecText"></p>
+          </div>
+          <div class="av-capture">
+            <h3>Get your free full audit + fix plan</h3>
+            <div class="sub">I'll personally review your answers and send back exactly what to fix first — no charge.</div>
+            <div class="av-field"><label for="avName">Your name</label><input type="text" id="avName" autocomplete="name" placeholder="First and last"></div>
+            <div class="av-field"><label for="avBiz">Business name</label><input type="text" id="avBiz" autocomplete="organization" placeholder="Your business"></div>
+            <div class="av-field"><label for="avEmail">Email</label><input type="email" id="avEmail" autocomplete="email" placeholder="you@example.com"></div>
+            <div class="av-field"><label for="avPhone">Phone (optional)</label><input type="tel" id="avPhone" autocomplete="tel" placeholder="(505) 000-0000"></div>
+            <div class="av-err" id="avErr">Please add your name and a valid email.</div>
+            <button class="av-btn" id="avSubmit" type="button">Send me my fix plan &rarr;</button>
+            <div class="av-finenote">No spam, ever. You'll hear back within one business day.</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+<script>
+const WEB3FORMS_KEY = "04cf16b7-e2d1-4412-accb-831b4f63c23a";
+const PILLARS = { found:"Getting Found on Google", site:"Your Website", leads:"Capturing Leads" };
+const QUESTIONS = [
+  { pillar:"found", text:"Do you have a Google Business Profile — the listing with your map pin, hours and reviews?",
+    opts:[["Yes, and it's fully set up",15],["Yes, but I haven't really touched it",7],["No, or I'm not sure",0]] },
+  { pillar:"found", text:"Search your service + your town (like \"landscaper in Las Cruces\"). Do you show up on page one?",
+    opts:[["Yes, right near the top",12],["Somewhere on the first page",7],["No, or I've never checked",0]] },
+  { pillar:"found", text:"About how many Google reviews do you have?",
+    opts:[["20 or more",8],["A handful",4],["None yet",0]] },
+  { pillar:"site", text:"Do you have a website?",
+    opts:[["Yes, and I'm proud of it",15],["Yes, but it's old or bare-bones",7],["No website yet",0]] },
+  { pillar:"site", text:"Does your website look good and work well on a phone?",
+    opts:[["Yes, looks great on mobile",10],["Not really / not sure",3],["I don't have a site",0]] },
+  { pillar:"site", text:"Can a first-time visitor instantly see what you do and how to hire you?",
+    opts:[["Yes, front and center",10],["Sort of — they'd have to dig",5],["Not really",0]] },
+  { pillar:"leads", text:"When someone calls or messages while you're on a job, what usually happens?",
+    opts:[["They get an automatic text or reply right away",15],["I call them back when I get a chance",7],["They probably wait a while to hear back",0]] },
+  { pillar:"leads", text:"Is there an easy way for people to reach you or book you (form, button, or booking link)?",
+    opts:[["Yes, it's simple to reach or book me",15],["Only a phone number",7],["Not really",0]] },
+];
+const MAX = { found:0, site:0, leads:0 };
+QUESTIONS.forEach(function(q){ MAX[q.pillar] += Math.max.apply(null, q.opts.map(function(o){return o[1];})); });
+
+let idx = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+let RESULT = {};
+const $ = function(id){ return document.getElementById(id); };
+
+function openAudit(){
+  idx = 0;
+  for (let i=0;i<answers.length;i++) answers[i]=null;
+  document.body.style.overflow = "hidden";
+  $("auditView").classList.add("open");
+  showScreen("avQuestion"); renderQuestion();
+  $("auditView").scrollTo(0,0);
+}
+function closeAudit(){ $("auditView").classList.remove("open"); document.body.style.overflow=""; }
+function showScreen(id){
+  const scr = document.querySelectorAll("#auditView .av-screen");
+  for (let i=0;i<scr.length;i++) scr[i].classList.remove("active");
+  $(id).classList.add("active");
+  $("auditView").scrollTo(0,0);
+}
+function setProgress(step){ $("avProg").style.width = (step/QUESTIONS.length*100) + "%"; }
+function renderQuestion(){
+  const q = QUESTIONS[idx];
+  $("avQPillar").textContent = PILLARS[q.pillar];
+  $("avQText").textContent = q.text;
+  $("avCount").textContent = "Question " + (idx+1) + " of " + QUESTIONS.length;
+  setProgress(idx);
+  const wrap = $("avQOpts"); wrap.innerHTML = "";
+  q.opts.forEach(function(o,i){
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "av-opt" + (answers[idx]===i ? " sel" : "");
+    b.innerHTML = '<span class="av-dot"></span><span>'+o[0]+'</span>';
+    b.onclick = function(){ choose(i); };
+    wrap.appendChild(b);
+  });
+}
+$("avBack").onclick = function(){ if (idx===0){ closeAudit(); return; } idx--; renderQuestion(); };
+function choose(i){
+  answers[idx] = i;
+  const opts = document.querySelectorAll("#avQOpts .av-opt");
+  for (let j=0;j<opts.length;j++) opts[j].classList.toggle("sel", j===i);
+  setTimeout(function(){
+    if (idx < QUESTIONS.length-1){ idx++; renderQuestion(); }
+    else { setProgress(QUESTIONS.length); showResults(); }
+  }, 240);
+}
+function showResults(){
+  const score = { found:0, site:0, leads:0 };
+  QUESTIONS.forEach(function(q,i){ score[q.pillar] += q.opts[answers[i]][1]; });
+  const overall = score.found + score.site + score.leads;
+  let weakest = "found", worst = 2;
+  ["found","site","leads"].forEach(function(p){ const r = score[p]/MAX[p]; if (r < worst){ worst=r; weakest=p; } });
+  RESULT = { score:score, overall:overall, weakest:weakest };
+  const band = overall>=80 ? ["You're ahead of the pack.","Most local businesses can't say that. A few smart tweaks and you'll be the obvious choice in your area."]
+             : overall>=55 ? ["Good bones — but you're leaking customers.","You've got a real foundation. The gaps below are where potential customers are slipping to competitors."]
+             : overall>=30 ? ["Right now, you're hard to find.","When people search for what you do, they're likely landing on someone else. That's fixable — and it's the fastest way to more calls."]
+             : ["You're nearly invisible online.","Here's the good news: when you're starting from here, even the basics create a big jump in calls fast."];
+  $("avBandTitle").textContent = band[0];
+  $("avBandText").textContent = band[1];
+  const C = 2*Math.PI*76;
+  $("avGaugeArc").style.strokeDasharray = C;
+  $("avGaugeArc").style.strokeDashoffset = C;
+  $("avGaugeArc").style.stroke = overall>=55 ? "#E2542B" : (overall>=30 ? "#E2542B" : "#B23A18");
+  showScreen("avResults");
+  requestAnimationFrame(function(){ setTimeout(function(){ $("avGaugeArc").style.strokeDashoffset = C*(1-overall/100); }, 150); });
+  let n=0; const target=overall; const stp=Math.max(1,Math.round(target/28));
+  const t=setInterval(function(){ n+=stp; if(n>=target){n=target;clearInterval(t);} $("avScoreNum").textContent=n; }, 22);
+  const bars = $("avBars"); bars.innerHTML = "";
+  ["found","site","leads"].forEach(function(p){
+    const pct = Math.round(score[p]/MAX[p]*100);
+    const row = document.createElement("div"); row.className = "av-barrow";
+    row.innerHTML = '<div class="top"><b>'+PILLARS[p]+'</b>'+(p===weakest?'<span class="tag">Start here</span>':'')+'<span class="pct">'+pct+'%</span></div>'+
+                    '<div class="av-track"><div class="av-fill'+(p===weakest?' weak':'')+'"></div></div>';
+    bars.appendChild(row);
+    requestAnimationFrame(function(){ setTimeout(function(){ row.querySelector(".av-fill").style.width = pct+"%"; }, 250); });
+  });
+  const REC = {
+    found:["Getting found on Google.","The single fastest win: setting up and sharpening your Google Business Profile so you show up on the map when nearby customers search. It's free real estate you're leaving on the table."],
+    site:["A website that earns trust.","A clean, mobile-friendly site that instantly shows what you do and how to hire you will turn far more of your visitors into phone calls."],
+    leads:["Never missing a lead.","An automatic text-back means every call and message gets an instant reply — even mid-job — so you stop losing customers to whoever answers first."]
+  };
+  $("avRecTitle").textContent = REC[weakest][0];
+  $("avRecText").textContent = REC[weakest][1];
+}
+$("avSubmit").onclick = async function(){
+  const name = $("avName").value.trim(), biz = $("avBiz").value.trim(), email = $("avEmail").value.trim(), phone = $("avPhone").value.trim();
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!name || !validEmail){ $("avErr").style.display="block"; return; }
+  $("avErr").style.display="none";
+  const btn = $("avSubmit"); btn.disabled = true; btn.textContent = "Sending…";
+  const answerSummary = QUESTIONS.map(function(q,i){ return "• " + q.text + " -> " + q.opts[answers[i]][0]; }).join("\n");
+  const payload = {
+    access_key: WEB3FORMS_KEY, subject: "New Get-Found Audit lead: " + (biz || name), from_name: "Heady Solutions Audit",
+    name:name, business:biz, email:email, phone:phone,
+    overall_score: RESULT.overall + "/100", getting_found: RESULT.score.found + "/" + MAX.found,
+    website: RESULT.score.site + "/" + MAX.site, lead_capture: RESULT.score.leads + "/" + MAX.leads,
+    priority_area: PILLARS[RESULT.weakest], answers: answerSummary
+  };
+  try {
+    if (!WEB3FORMS_KEY.startsWith("PASTE")){
+      await fetch("https://api.web3forms.com/submit", { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body: JSON.stringify(payload) });
+    }
+  } catch(e){}
+  const first = name.split(" ")[0];
+  $("thanksBannerText").textContent = "Thanks, " + first + "! Your Get-Found Score is " + RESULT.overall + "/100 — I'll reach out within one business day with your fix plan.";
+  closeAudit();
+  $("thanksBanner").classList.add("show");
+  window.scrollTo({top:0,behavior:"smooth"});
+  btn.disabled = false; btn.textContent = "Send me my fix plan \u2192";
+};
+</script>
+</body>
+</html>
